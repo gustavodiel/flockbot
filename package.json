@@ -5,7 +5,10 @@
   "author": "Gustavo Diel <gustavo.diel@trustedhealth.com>",
   "description": "A helpful robot for deploy queuing",
   "dependencies": {
+    "@octokit/rest": "^18.12.0",
+    "heroku-client": "^3.1.0",
     "hubot": "^3.3.2",
+    "hubot-deployer": "^0.2.2",
     "hubot-diagnostics": "^1.0.0",
     "hubot-google-images": "^0.2.7",
     "hubot-google-translate": "^0.2.1",
@@ -17,8 +20,8 @@
     "hubot-rules": "^1.0.0",
     "hubot-scripts": "^2.17.2",
     "hubot-shell": "^1.0.2",
-    "hubot-slack": "^4.10.0",
-    "hubot-shipit": "^0.2.1"
+    "hubot-shipit": "^0.2.1",
+    "hubot-slack": "^4.10.0"
   },
   "engines": {
     "node": "0.10.x"

@@ -1,0 +1,4 @@
+deploy:
+  heroku:
+    other:
+      appname: stg-flockbot
