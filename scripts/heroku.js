@@ -15,8 +15,6 @@ module.exports = async (msg, branch) => {
     auth: process.env.HUBOT_GITHUB_KEY,
   });
 
-  // const { data } = await octokit.request("/user");
-
   const owner = 'gustavodiel'
   const repo = 'pasta_do_projeto'
   const ref = `heads/${branch}`
@@ -28,22 +26,21 @@ module.exports = async (msg, branch) => {
 
   const apps = await heroku.get('/apps')
   const app = apps.find(app => app.name == appname)
-  const app_url = app.web_url
 
-  // if (!!app) {
-  //   msg.reply("gh auth ", JSON.stringify(app))
-  // }
+  if (!app) {
+    msg.reply(`App ${appname} not found`)
+  }
 
   // build app
   try {
-    await heroku.post(`/apps/${app.name}/builds`, {
+    build = await heroku.post(`/apps/${app.name}/builds`, {
       body: {
         source_blob: { url: url }
       }
     })
 
-    msg.reply('Successfully builded')
-  }catch(err) {
+    msg.reply('Successfully builded', JSON.stringify(build.output_stream_url))
+  } catch(err) {
     msg.reply("err:    ", JSON.stringify(err))
   }
 }
