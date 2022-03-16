@@ -1,3 +1,5 @@
+deploy = require('./heroku')
+
 module.exports = (robot) => {
   robot.respond(/ship(!)? ([^\s]+) to ([^\s\/]+)$/i, (msg) => {
     const priority = msg.match[1] === '!';
@@ -5,7 +7,6 @@ module.exports = (robot) => {
     const env = msg.match[3];
     msg.send(`I am going to ship ${branch} to ${env} - ${priority ? 'With high priority' : 'With regular priority'}`);
 
-
-
+    deploy(msg, branch);
   });
 }
