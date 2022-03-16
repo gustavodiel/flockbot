@@ -4,6 +4,7 @@
 
 1. `npm install`
 2. `bin/hubot`
+3. `HUBOT_SLACK_TOKEN=YOUR_SLACK_APP_TOKEN ./bin/hubot --adapter slack`
 
 ----
 
