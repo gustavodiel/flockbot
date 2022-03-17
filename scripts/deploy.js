@@ -14,14 +14,13 @@ let client;
 const run = (robot, msg, branch, env) => {
   msg.send(`I am going to ship ${branch} to ${env}`);
 
-  deploy(msg, branch, async (body) => {
-    if (body.includes('Push rejected') || body.includes('ERR! build error')) {
-      msg.reply('Build failed! Try again looser')
+  deploy(msg, branch, async (app, build, body) => {
+    if (!body || body.includes('Push rejected') || body.includes('ERR! build error')) {
+      msg.send(`Build failed for branch ${branch}! Try again looser`)
     } else {
-      msg.reply('Successfully builded')
+      msg.send(`Successfully builded ${branch}! Access it in ${app.web_url}`)
     }
-    const removed = await client.lPop(`queue_${env}`)
-    msg.send(`${removed} is done!`)
+    await client.lPop(`queue_${env}`)
     const queue_data = JSON.parse(await client.lIndex(`queue_${env}`, 0))
 
     if (queue_data) {

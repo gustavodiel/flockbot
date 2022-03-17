@@ -18,10 +18,16 @@ module.exports = async (msg, branch, callback) => {
   });
 
   const owner = 'gustavodiel'
-  const repo = 'pasta_do_projeto'
+  const repo = 'tiny_app'
   const ref = `heads/${branch}`
-
-  const { url } = await octokit.rest.repos.downloadTarballArchive({ owner, repo, ref })
+  let tarball_url;
+  try {
+    const { url } = await octokit.rest.repos.downloadTarballArchive({owner, repo, ref})
+    tarball_url = url;
+  } catch {
+    msg.send(`Failed to fetch info from branch ${branch}`)
+    return callback(undefined, undefined, undefined)
+  }
   const appname = 'stg-flockbot';
 
   const heroku = new Heroku({ token: process.env.HUBOT_HEROKU_KEY })
@@ -31,14 +37,14 @@ module.exports = async (msg, branch, callback) => {
 
   if (!app) {
     msg.reply(`App ${appname} not found`)
-    return callback(undefined)
+    return callback(undefined, undefined, undefined)
   }
 
   // build app
   try {
     const build = await heroku.post(`/apps/${app.name}/builds`, {
       body: {
-        source_blob: { url: url }
+        source_blob: { url: tarball_url }
       }
     });
 
@@ -52,16 +58,16 @@ module.exports = async (msg, branch, callback) => {
         });
 
         res.on('end', () => {
-          callback(body)
+          callback(app, build, body)
         });
       });
 
     } catch(err) {
       msg.reply("http err:    ", JSON.stringify(err))
-      return callback(undefined)
+      return callback(undefined, undefined, undefined)
     }
   } catch(err) {
     msg.reply("err:    ", JSON.stringify(err))
-    return callback(undefined)
+    return callback(undefined, undefined, undefined)
   }
 }
