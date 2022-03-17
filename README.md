@@ -5,8 +5,8 @@
 # Guide from Alice and Diel
 
 1. `npm install`
-2. `bin/hubot`
-3. `HUBOT_SLACK_TOKEN=YOUR_SLACK_APP_TOKEN ./bin/hubot --adapter slack`
+2. `cp .env.example .env` and update the envs values 
+3. `./bin/hubot --adapter slack`
 
 ----
 
