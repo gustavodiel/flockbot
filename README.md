@@ -1,5 +1,7 @@
 # flockbot
 
+<img src="https://i.imgur.com/Zfm2iC1.png">
+
 # Guide from Alice and Diel
 
 1. `npm install`
