@@ -1,6 +1,8 @@
 module.exports = (robot) => {
   robot.respond(/hello$/i, (msg) => {
-    return msg.send('Olaaaar');
+    const room = msg.envelope.room;
+    const user = msg.envelope.user.real_name;
+    return msg.send(`Hello ${user}`);
   });
 
   robot.respond(/hello (.*)$/i, (msg) => {
