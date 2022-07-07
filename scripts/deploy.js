@@ -6,7 +6,7 @@ let client;
 (async () => {
   client = createClient();
 
-  client.on('error', (err) => console.log('Redis Client Error', err));
+  await client.on('error', (err) => console.log('Redis Client Error', err));
 
   await client.connect();
 })();
@@ -38,7 +38,6 @@ module.exports = (robot) => {
 
     const { name } = msg.envelope.user;
     const redis_value = JSON.stringify({ branch: branch, env: env, user: name })
-
 
     let len = await client.lLen(queue_name)
     let elements = await client.lRange(queue_name, 0, len)

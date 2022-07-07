@@ -7,7 +7,7 @@ module.exports = (robot) => {
 
   robot.respond(/hello (.*)$/i, (msg) => {
     const name = msg.match[1];
-    return msg.send(`Olar ${name}`);
+    return msg.send(`Hello ${name}`);
   });
 
   robot.respond(/shy (.*)$/i, (msg) => {
@@ -15,7 +15,7 @@ module.exports = (robot) => {
   });
 
   robot.respond(/parrot$/i, (msg) => {
-    return msg.send('https://camo.githubusercontent.com/2a4c7551af34cec274789e04ab402329afd0aea5a732449088ba11d01d4a624b/68747470733a2f2f692e696d6775722e636f6d2f5a666d326943312e706e67')
+    return msg.send('https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fcamo.githubusercontent.com%2F2a4c7551af34cec274789e04ab402329afd0aea5a732449088ba11d01d4a624b%2F68747470733a2f2f692e696d6775722e636f6d2f5a666d326943312e706e67')
   });
 
   robot.respond(/trustedhelp$/i, (msg) => {
